@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-comment">-- Copyright (c) 2017 Uber Technologies, Inc.</span><span>
+</span><a name="line-2"></a><span class="hs-comment">--</span><span>
+</span><a name="line-3"></a><span class="hs-comment">-- Permission is hereby granted, free of charge, to any person obtaining a copy</span><span>
+</span><a name="line-4"></a><span class="hs-comment">-- of this software and associated documentation files (the &quot;Software&quot;), to deal</span><span>
+</span><a name="line-5"></a><span class="hs-comment">-- in the Software without restriction, including without limitation the rights</span><span>
+</span><a name="line-6"></a><span class="hs-comment">-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- copies of the Software, and to permit persons to whom the Software is</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- furnished to do so, subject to the following conditions:</span><span>
+</span><a name="line-9"></a><span class="hs-comment">--</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- The above copyright notice and this permission notice shall be included in</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- all copies or substantial portions of the Software.</span><span>
+</span><a name="line-12"></a><span class="hs-comment">--</span><span>
+</span><a name="line-13"></a><span class="hs-comment">-- THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span><span>
+</span><a name="line-14"></a><span class="hs-comment">-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span><span>
+</span><a name="line-15"></a><span class="hs-comment">-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span><span>
+</span><a name="line-17"></a><span class="hs-comment">-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span><span>
+</span><a name="line-19"></a><span class="hs-comment">-- THE SOFTWARE.</span><span>
+</span><a name="line-20"></a><span>
+</span><a name="line-21"></a><span class="hs-pragma">{-# OPTIONS_GHC -fno-warn-orphans #-}</span><span>
+</span><a name="line-22"></a><span class="hs-pragma">{-# LANGUAGE PackageImports #-}</span><span>
+</span><a name="line-23"></a><span class="hs-pragma">{-# LANGUAGE CPP #-}</span><span>
+</span><a name="line-24"></a><span>
+</span><a name="line-25"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Test</span><span class="hs-operator">.</span><span class="hs-identifier">QuickCheck</span><span> </span><span class="hs-special">(</span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">X</span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-26"></a><span>
+</span><a name="line-27"></a><span class="hs-keyword">import</span><span> </span><span class="hs-string">&quot;QuickCheck&quot;</span><span> </span><a href="Test.QuickCheck.html"><span class="hs-identifier">Test</span><span class="hs-operator">.</span><span class="hs-identifier">QuickCheck</span></a><span> </span><span class="hs-keyword">as</span><span> </span><span class="hs-identifier">X</span><span>
+</span><a name="line-28"></a><span>
+</span><a name="line-29"></a><span class="hs-cpp">#if !MIN_VERSION_QuickCheck(2,9,0)</span><span>
+</span><a name="line-30"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Functor</span><span class="hs-operator">.</span><span class="hs-identifier">Identity</span><span>
+</span><a name="line-31"></a><span>
+</span><a name="line-32"></a><span class="hs-keyword">instance</span><span> </span><span class="hs-identifier">Arbitrary</span><span> </span><span class="hs-identifier">a</span><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-identifier">Arbitrary</span><span> </span><span class="hs-special">(</span><span class="hs-identifier">Identity</span><span> </span><span class="hs-identifier">a</span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-33"></a><span>    </span><span class="hs-identifier">arbitrary</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier">Identity</span><span> </span><span class="hs-operator">&lt;$&gt;</span><span> </span><span class="hs-identifier">arbitrary</span><span>
+</span><a name="line-34"></a><span>    </span><span class="hs-identifier">shrink</span><span> </span><span class="hs-special">(</span><span class="hs-identifier">Identity</span><span> </span><span class="hs-identifier">x</span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier">Identity</span><span> </span><span class="hs-operator">&lt;$&gt;</span><span> </span><span class="hs-identifier">shrink</span><span> </span><span class="hs-identifier">x</span><span>
+</span><a name="line-35"></a><span class="hs-cpp">#endif</span><span>
+</span><a name="line-36"></a></pre></body></html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# LANGUAGE MultiParamTypeClasses, FunctionalDependencies #-}</span><span>
+</span><a name="line-2"></a><span class="hs-comment">-----------------------------------------------------------------------------</span><span>
+</span><a name="line-3"></a><span class="hs-comment">-- |</span><span>
+</span><a name="line-4"></a><span class="hs-comment">--</span><span>
+</span><a name="line-5"></a><span class="hs-comment">-- Module      :  Text.Regex.Base</span><span>
+</span><a name="line-6"></a><span class="hs-comment">-- Copyright   :  (c) Chris Kuklewicz 2006</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- License     :  BSD-style (see the file LICENSE)</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-9"></a><span class="hs-comment">-- Maintainer  :  libraries@haskell.org, textregexlazy@personal.mightyreason.com</span><span>
+</span><a name="line-10"></a><span class="hs-comment">-- Stability   :  experimental</span><span>
+</span><a name="line-11"></a><span class="hs-comment">-- Portability :  non-portable (MPTC+FD)</span><span>
+</span><a name="line-12"></a><span class="hs-comment">--</span><span>
+</span><a name="line-13"></a><span class="hs-comment">-- Classes and instances for Regex matching.</span><span>
+</span><a name="line-14"></a><span class="hs-comment">--</span><span>
+</span><a name="line-15"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-16"></a><span class="hs-comment">-- This module merely imports and re-exports the common part of the new</span><span>
+</span><a name="line-17"></a><span class="hs-comment">-- api: &quot;Text.Regex.Base.RegexLike&quot; and &quot;Text.Regex.Base.Context&quot;.</span><span>
+</span><a name="line-18"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-19"></a><span class="hs-comment">-- To see what result types the instances of RegexContext can produce,</span><span>
+</span><a name="line-20"></a><span class="hs-comment">-- please read the &quot;Text.Regex.Base.Context&quot; haddock documentation.</span><span>
+</span><a name="line-21"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-22"></a><span class="hs-comment">-- This does not provide any of the backends, just the common interface</span><span>
+</span><a name="line-23"></a><span class="hs-comment">-- they all use.  The modules which provide the backends and their cabal</span><span>
+</span><a name="line-24"></a><span class="hs-comment">-- packages are:</span><span>
+</span><a name="line-25"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-26"></a><span class="hs-comment">--  * @Text.Regex.Posix@ from regex-posix</span><span>
+</span><a name="line-27"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-28"></a><span class="hs-comment">--  * @Text.Regex@ from regex-compat (uses regex-posix)</span><span>
+</span><a name="line-29"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-30"></a><span class="hs-comment">--  * @Text.Regex.Parsec@ from regex-parsec</span><span>
+</span><a name="line-31"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-32"></a><span class="hs-comment">--  * @Text.Regex.DFA@ from regex-dfa</span><span>
+</span><a name="line-33"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-34"></a><span class="hs-comment">--  * @Text.Regex.PCRE@ from regex-pcre</span><span>
+</span><a name="line-35"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-36"></a><span class="hs-comment">--  * @Test.Regex.TRE@ from regex-tre</span><span>
+</span><a name="line-37"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-38"></a><span class="hs-comment">-- In fact, just importing one of the backends is adequate, you do not</span><span>
+</span><a name="line-39"></a><span class="hs-comment">-- also need to import this module.</span><span>
+</span><a name="line-40"></a><span class="hs-comment">-- </span><span>
+</span><a name="line-41"></a><span class="hs-comment">-- TODO: Copy Example*hs files into this haddock comment</span><span>
+</span><a name="line-42"></a><span class="hs-comment">-----------------------------------------------------------------------------</span><span>
+</span><a name="line-43"></a><span>
+</span><a name="line-44"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Text</span><span class="hs-operator">.</span><span class="hs-identifier">Regex</span><span class="hs-operator">.</span><span class="hs-identifier">Base</span><span> </span><span class="hs-special">(</span><a href="Text.Regex.Base.html#getVersion_Text_Regex_Base"><span class="hs-identifier hs-var">getVersion_Text_Regex_Base</span></a><span>
+</span><a name="line-45"></a><span>  </span><span class="hs-comment">-- | RegexLike defines classes and type, and 'Extract' instances</span><span>
+</span><a name="line-46"></a><span>  </span><span class="hs-special">,</span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Text</span><span class="hs-operator">.</span><span class="hs-identifier">Regex</span><span class="hs-operator">.</span><span class="hs-identifier">Base</span><span class="hs-operator">.</span><span class="hs-identifier">RegexLike</span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><a name="line-47"></a><span>
+</span><a name="line-48"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Data</span><span class="hs-operator">.</span><span class="hs-identifier">Version</span><span class="hs-special">(</span><span class="hs-identifier hs-type">Version</span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a name="line-49"></a><span class="hs-keyword">import</span><span> </span><a href="Text.Regex.Base.RegexLike.html"><span class="hs-identifier">Text</span><span class="hs-operator">.</span><span class="hs-identifier">Regex</span><span class="hs-operator">.</span><span class="hs-identifier">Base</span><span class="hs-operator">.</span><span class="hs-identifier">RegexLike</span></a><span>
+</span><a name="line-50"></a><span class="hs-keyword">import</span><span> </span><a href="Text.Regex.Base.Context.html"><span class="hs-identifier">Text</span><span class="hs-operator">.</span><span class="hs-identifier">Regex</span><span class="hs-operator">.</span><span class="hs-identifier">Base</span><span class="hs-operator">.</span><span class="hs-identifier">Context</span></a><span class="hs-special">(</span><span class="hs-special">)</span><span>
+</span><a name="line-51"></a><span>
+</span><a name="line-52"></a><span class="hs-identifier">getVersion_Text_Regex_Base</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Version</span><span>
+</span><a name="line-53"></a><a name="getVersion_Text_Regex_Base"><a href="Text.Regex.Base.html#getVersion_Text_Regex_Base"><span class="hs-identifier">getVersion_Text_Regex_Base</span></a></a><span> </span><span class="hs-glyph">=</span><span>
+</span><a name="line-54"></a><span>  </span><span class="hs-identifier hs-var">Version</span><span> </span><span class="hs-special">{</span><span> </span><span class="hs-identifier">versionBranch</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-number">0</span><span class="hs-special">,</span><span class="hs-number">93</span><span class="hs-special">,</span><span class="hs-number">2</span><span class="hs-special">]</span><span>
+</span><a name="line-55"></a><span>          </span><span class="hs-special">,</span><span> </span><span class="hs-identifier">versionTags</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-string">&quot;unstable&quot;</span><span class="hs-special">]</span><span>
+</span><a name="line-56"></a><span>          </span><span class="hs-special">}</span><span>
+</span><a name="line-57"></a></pre></body></html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# LANGUAGE GeneralizedNewtypeDeriving, PatternGuards, DeriveDataTypeable #-}</span><span>
+</span><a name="line-2"></a><span class="hs-comment">-- | Previously, accepting tests (by the @--accept@ flag) was done by this</span><span>
+</span><a name="line-3"></a><span class="hs-comment">-- module, and there was an ingredient to handle that mode.</span><span>
+</span><a name="line-4"></a><span class="hs-comment">--</span><span>
+</span><a name="line-5"></a><span class="hs-comment">-- Now it's done as part of a normal test run. When the `--accept` flag is</span><span>
+</span><a name="line-6"></a><span class="hs-comment">-- given, it makes golden tests to update the files whenever there is</span><span>
+</span><a name="line-7"></a><span class="hs-comment">-- a mismatch. So you no longer need this module. It remains only for</span><span>
+</span><a name="line-8"></a><span class="hs-comment">-- backwards compatibility.</span><span>
+</span><a name="line-9"></a><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Test</span><span class="hs-operator">.</span><span class="hs-identifier">Tasty</span><span class="hs-operator">.</span><span class="hs-identifier">Golden</span><span class="hs-operator">.</span><span class="hs-identifier">Manage</span><span>
+</span><a name="line-10"></a><span>  </span><span class="hs-special">(</span><span>
+</span><a name="line-11"></a><span>  </span><span class="hs-comment">-- * Command line helpers</span><span>
+</span><a name="line-12"></a><span>    </span><a href="Test.Tasty.Golden.Manage.html#defaultMain"><span class="hs-identifier hs-var">defaultMain</span></a><span>
+</span><a name="line-13"></a><span>
+</span><a name="line-14"></a><span>  </span><span class="hs-comment">-- * The ingredient</span><span>
+</span><a name="line-15"></a><span>  </span><span class="hs-special">,</span><span> </span><a href="Test.Tasty.Golden.Manage.html#acceptingTests"><span class="hs-identifier hs-var">acceptingTests</span></a><span>
+</span><a name="line-16"></a><span>  </span><span class="hs-special">,</span><span> </span><a href="Test.Tasty.Golden.Internal.html#AcceptTests"><span class="hs-identifier hs-type">AcceptTests</span></a><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span>
+</span><a name="line-17"></a><span>  </span><span class="hs-special">)</span><span>
+</span><a name="line-18"></a><span>  </span><span class="hs-keyword">where</span><span>
+</span><a name="line-19"></a><span>
+</span><a name="line-20"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Test</span><span class="hs-operator">.</span><span class="hs-identifier">Tasty</span><span> </span><span class="hs-keyword">hiding</span><span> </span><span class="hs-special">(</span><span class="hs-identifier hs-var">defaultMain</span><span class="hs-special">)</span><span>
+</span><a name="line-21"></a><span class="hs-keyword">import</span><span> </span><span class="hs-identifier">Test</span><span class="hs-operator">.</span><span class="hs-identifier">Tasty</span><span class="hs-operator">.</span><span class="hs-identifier">Runners</span><span>
+</span><a name="line-22"></a><span class="hs-keyword">import</span><span> </span><a href="Test.Tasty.Golden.Internal.html"><span class="hs-identifier">Test</span><span class="hs-operator">.</span><span class="hs-identifier">Tasty</span><span class="hs-operator">.</span><span class="hs-identifier">Golden</span><span class="hs-operator">.</span><span class="hs-identifier">Internal</span></a><span>
+</span><a name="line-23"></a><span>
+</span><a name="line-24"></a><span class="hs-comment">-- | This exists only for backwards compatibility. Use</span><span>
+</span><a name="line-25"></a><span class="hs-comment">-- 'Test.Tasty.defaultMain' instead.</span><span>
+</span><a name="line-26"></a><span class="hs-identifier">defaultMain</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">TestTree</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-type">IO</span><span> </span><span class="hs-special">(</span><span class="hs-special">)</span><span>
+</span><a name="line-27"></a><a name="defaultMain"><a href="Test.Tasty.Golden.Manage.html#defaultMain"><span class="hs-identifier">defaultMain</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">defaultMainWithIngredients</span><span> </span><span class="hs-special">[</span><a href="Test.Tasty.Golden.Manage.html#acceptingTests"><span class="hs-identifier hs-var">acceptingTests</span></a><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">listingTests</span><span class="hs-special">,</span><span> </span><span class="hs-identifier hs-var">consoleTestReporter</span><span class="hs-special">]</span><span>
+</span><a name="line-28"></a><span>
+</span><a name="line-29"></a><span class="hs-comment">-- | This exists only for backwards compatibility. You don't need to</span><span>
+</span><a name="line-30"></a><span class="hs-comment">-- include this anymore.</span><span>
+</span><a name="line-31"></a><span class="hs-identifier">acceptingTests</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-identifier hs-type">Ingredient</span><span>
+</span><a name="line-32"></a><a name="acceptingTests"><a href="Test.Tasty.Golden.Manage.html#acceptingTests"><span class="hs-identifier">acceptingTests</span></a></a><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-identifier hs-var">TestManager</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-operator hs-var">$</span><span> </span><span class="hs-glyph">\</span><span class="hs-identifier">_</span><span> </span><span class="hs-identifier">_</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-identifier hs-var">Nothing</span><span>
+</span><a name="line-33"></a></pre></body></html>
