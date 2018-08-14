@@ -385,6 +385,7 @@ testParser = test
         , "SELECT cast('1 minutes' AS INTERVAL MINUTE);"
         , "SELECT date_trunc('week', foo.at) FROM foo;"
         , "SELECT foo::TIME FROM bar;"
+        , "SELECT 4 mod 3;"
         , "DROP VIEW foo.bar;"
         , "DROP VIEW IF EXISTS foo.bar;"
         ]

@@ -1466,7 +1466,8 @@ exponentExprP = negateExprP `chainl1` binOpP "^"
 productExprP :: Parser (Expr RawNames Range)
 productExprP = exponentExprP `chainl1` opP
   where
-    opP = choice $ map binOpP [ "*", "//", "/", "%" ]
+    opP = choice $ modP : map binOpP [ "*", "//", "/", "%" ]
+    modP = (`BinOpExpr` "MOD") <$> Tok.modP
 
 
 sumExprP :: Parser (Expr RawNames Range)

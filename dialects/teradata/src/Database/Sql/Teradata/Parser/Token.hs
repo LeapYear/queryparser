@@ -640,6 +640,9 @@ matchedP = keywordP "matched"
 mergeP :: Parser Range
 mergeP = keywordP "merge"
 
+modP :: Parser Range
+modP = keywordP "mod"
+
 nameP :: Parser Range
 nameP = keywordP "name"
 
