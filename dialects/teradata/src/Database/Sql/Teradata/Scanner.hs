@@ -250,24 +250,24 @@ tokExtString pos = go (advanceHorizontal 2 pos) [] . TL.drop 2
 
 
 tokName :: Position -> Text -> Either (Token, Position, Position) (Text, Bool, Text, Position)
-tokName pos = go pos [] False
-  where
-    go :: Position -> [Text] -> Bool -> Text -> Either (Token, Position, Position) (Text, Bool, Text, Position)
-    go p [] _ ""  = error $ "parse error at " ++ show p
-    go p ts seen_quotes "" = Right (TL.concat $ reverse ts, seen_quotes, "", p)
-    go p ts seen_quotes input = case TL.head input of
--- Case where outside double quote
-      c | isWordBody c ->
-        let (word, rest) = TL.span isWordBody input
+tokName p txt
+    | TL.null txt = Left (TokError "unexpected end of input", p, p)
+    | '"' == TL.head txt = handleQuotedString (advanceHorizontal 1 p) [] (TL.tail txt)
+    | otherwise =
+        let (word, rest) = TL.span isWordBody txt
             p' = advanceHorizontal (TL.length word) p
-         in go p' (TL.toLower word:ts) seen_quotes rest
+         in Right (TL.toLower word, False, rest, p')
 
-      c | c == '"' ->
-        case tokString p '"' input of
-            Left p' -> Left (TokError "end of input inside string", p, p')
-            Right (quoted, rest, p') -> go p' (quoted:ts) True rest
+handleQuotedString :: Position -> [Text] -> Text -> Either (Token, Position, Position) (Text, Bool, Text, Position)
+handleQuotedString p ts txt = case TL.span (/= '"') txt of
+  ("", _) ->
+      case TL.span (== '"') txt of
+          (qs, rest) ->
+              let len = TL.length qs
+               in case len `divMod` 2 of
+                    (half, 0) -> handleQuotedString (advanceHorizontal len p) (TL.take half qs:ts) rest
+                    (half, _) ->
+                        let word = TL.concat $ reverse $ TL.take half qs : ts
+                         in Right (TL.toLower word, True, rest, advanceHorizontal len p)
 
-      _ -> case ts of
-         [] -> error "empty token"
-         _ -> Right (TL.concat $ reverse ts, seen_quotes, input, p)
-
+  (t, rest) -> handleQuotedString (advance t p) (t:ts) rest
