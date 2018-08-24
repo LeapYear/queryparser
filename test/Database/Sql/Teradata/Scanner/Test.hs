@@ -61,6 +61,34 @@ testTokenizer =
                                        , Position 1 7 7 )]
              ],
 
+      "Multiquote"
+      ~: test[ tokenize "\"foobar\"" ~?= [( TokWord True "foobar"
+                                          , Position 1 0 0
+                                          , Position 1 8 8 )]
+
+             , tokenize "\"foo\"bar" ~?= [( TokWord True "foo"
+                                          , Position 1 0 0
+                                          , Position 1 5 5 )
+                                         ,( TokWord False "bar"
+                                          , Position 1 5 5
+                                          , Position 1 8 8 )]
+
+             , tokenize "\"foo\"\"bar\"" ~?= [( TokWord True "foo\"bar"
+                                              , Position 1 0 0
+                                              , Position 1 10 10 )]
+
+             , tokenize "\"foo\"\"\"bar" ~?= [( TokWord True "foo\""
+                                              , Position 1 0 0
+                                              , Position 1 7 7 )
+                                             ,( TokWord False "bar"
+                                              , Position 1 7 7
+                                              , Position 1 10 10 )]
+
+             , tokenize "\"foo\"\"\"\"bar\"" ~?= [( TokWord True "foo\"\"bar"
+                                                  , Position 1 0 0
+                                                  , Position 1 12 12 )]
+             ],
+
       "Double quotes are lowercased, marked as quoted"
       ~: test[ tokenize "\"potato\"" ~?= [( TokWord True "potato"
                                           , Position 1 0 0

@@ -258,7 +258,11 @@ tokName p txt
             p' = advanceHorizontal (TL.length word) p
          in Right (TL.toLower word, False, rest, p')
 
-handleQuotedString :: Position -> [Text] -> Text -> Either (Token, Position, Position) (Text, Bool, Text, Position)
+handleQuotedString
+    :: Position
+    -> [Text] -- list of chunks, to be reversed and reassembled at the end
+    -> Text -- input
+    -> Either (Token, Position, Position) (Text, Bool, Text, Position)
 handleQuotedString p ts txt = case TL.span (/= '"') txt of
   ("", _) ->
       case TL.span (== '"') txt of
