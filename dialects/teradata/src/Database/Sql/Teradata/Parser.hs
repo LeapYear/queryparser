@@ -248,15 +248,13 @@ truncateP = do
 
 
 querySelectP :: Parser (Query RawNames Range)
-querySelectP = do
-        select <- selectP
-        return $ QuerySelect (selectInfo select) select
+querySelectP = selectP
 
 queryP :: Parser (Query RawNames Range)
 queryP = manyParensP $ do
     with <- option id withP
 
-    query <- ((querySelectP <|> P.between Tok.openP Tok.closeP queryP) `chainl1` (exceptP <|> unionP))
+    query <- ((selectP <|> P.between Tok.openP Tok.closeP queryP) `chainl1` (exceptP <|> unionP))
                 `chainl1` intersectP
 
     order <- option id orderP
@@ -872,11 +870,14 @@ setGroup group = Endo $ \ Select{..} -> Select{selectInfo = selectInfo <> getInf
 setHaving :: SelectHaving RawNames Range -> Endo (Select RawNames Range)
 setHaving having = Endo $ \ Select{..} -> Select{selectInfo = selectInfo <> getInfo having, selectHaving = Just having, ..}
 
-selectP :: Parser (Select RawNames Range)
+selectP :: Parser (Query RawNames Range)
 selectP = do
     r <- Tok.selectP
 
     selectDistinct <- option notDistinct distinctP
+    top <- case selectDistinct of
+      Distinct False -> option id topP
+      _ -> return id
 
     selectCols <- do
         selections <- selectionP `sepBy1` Tok.commaP
@@ -890,16 +891,17 @@ selectP = do
       , setHaving <$> havingP
       ]
 
-    return $ populateClauses Select
-        { selectInfo = r <> getInfo selectCols
-        , selectFrom = Nothing
-        , selectWhere = Nothing
-        , selectTimeseries = Nothing
-        , selectGroup = Nothing
-        , selectHaving = Nothing
-        , selectNamedWindow = Nothing
-        , ..
-        }
+    let select = populateClauses Select
+          { selectInfo = r <> getInfo selectCols
+          , selectFrom = Nothing
+          , selectWhere = Nothing
+          , selectTimeseries = Nothing
+          , selectGroup = Nothing
+          , selectHaving = Nothing
+          , selectNamedWindow = Nothing
+          , ..
+          }
+    return $ top $ QuerySelect (selectInfo select) select
 
   where
     fromP = do
@@ -932,6 +934,16 @@ selectP = do
 
         let r' = foldl (<>) r $ fmap getInfo conditions
         return $ SelectHaving r' conditions
+
+    topP :: Parser (Query RawNames Range -> Query RawNames Range)
+    topP = do
+        r <- Tok.topP
+        choice
+            [ Tok.numberP >>= \ (v, r') ->
+                let limit = Limit (r <> r') v
+                 in return $ \ query -> QueryLimit (getInfo query <> r') limit query
+            , Tok.nullP >> return id
+            ]
 
 
 handlePositionalReferences :: Expr RawNames Range -> PositionOrExpr RawNames Range

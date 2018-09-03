@@ -883,6 +883,9 @@ timezoneP = keywordP "timezone" P.<|> do
 toleranceP :: Parser Range
 toleranceP = keywordP "tolerance"
 
+topP :: Parser Range
+topP = keywordP "top"
+
 trailingP :: Parser Range
 trailingP = keywordP "trailing"
 
