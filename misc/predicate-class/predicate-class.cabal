@@ -12,7 +12,7 @@ maintainer:          heli@uber.com
 category:            Data
 build-type:          Simple
 extra-source-files:
-                     CHANGELOG.md
+                     changelog.md
 cabal-version:       >=1.10
 
 library
