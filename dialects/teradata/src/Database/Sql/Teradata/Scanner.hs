@@ -29,6 +29,7 @@ import           Data.ByteString.Lazy (ByteString)
 import qualified Data.ByteString.Lazy as BL
 import qualified Data.ByteString.Builder as BB
 
+import Data.Monoid ((<>))
 import Data.List (sortBy)
 import Data.Foldable (asum)
 import Data.Char (isAlphaNum, isAlpha, isSpace, isDigit)
@@ -106,18 +107,14 @@ tokenize = go (Position 1 0 0)
                 Right (string, rest, p') -> (TokString $ TL.encodeUtf8 string, p, p') : go p' rest
 
         '.' ->
-            case TL.span isDigit (TL.tail t) of
-                ("", _) ->
-                    let p' = advanceHorizontal 1 p
-                     in (TokSymbol ".", p, p') : go p' (TL.tail t)
+            if TL.length t == 1 ||
+                notElem (TL.index t 1) ("Ee0123456789" :: String) then
+              let p' = advanceHorizontal 1 p
+               in (TokSymbol ".", p, p') : go p' (TL.tail t)
+            else
+              scanNumericLiteral p t
 
-                (digits, rest) ->
-                    let p' = advanceHorizontal (1 + TL.length digits) p
-                     in (TokNumber $ TL.cons '.' digits, p, p') : go p' rest
-
-        c | isDigit c -> let (num, rest) = TL.span (isDigit || (=='.')) t
-                             p' = advanceHorizontal (TL.length num) p
-                          in (TokNumber num, p, p') : go p' rest
+        c | isDigit c -> scanNumericLiteral p t
 
         c | isOperator c -> case readOperator t of
 
@@ -144,6 +141,23 @@ tokenize = go (Position 1 0 0)
     readOperator t = asum
         $ map (\ op -> (op,) <$> TL.stripPrefix op t) operators
 
+    scanNumericLiteral :: Position -> Text -> [(Token, Position, Position)]
+    scanNumericLiteral p t =
+        let (num0, rest0) = accept (`elem` ("-+" :: String))
+                          $ accept (`elem` ("Ee" :: String))
+                          $ TL.span (isDigit || (=='.')) t
+            (num1, rest) = TL.span isDigit rest0
+            num = num0 <> num1
+            p' = advanceHorizontal (TL.length num) p
+         in (TokNumber num, p, p') : go p' rest
+
+      where
+        -- accept p (l, c : r) | p c = (l ++ [c], r)
+        --                     | otherwise = (l, c : r)
+        accept :: (Char -> Bool) -> (Text, Text) -> (Text, Text)
+        accept p i@(num, rest) =
+          if TL.length rest == 0 || not (p (TL.head rest)) then i
+          else (num <> TL.take 1 rest, TL.tail rest)
 
 -- | tokString returns Text, not ByteString, because there is no way to put arbitrary byte sequences in this kind of Teradata string (... for now?)
 tokString :: Position -> Char -> Text -> Either Position (Text, Text, Position)
