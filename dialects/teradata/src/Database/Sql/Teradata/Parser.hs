@@ -1472,7 +1472,7 @@ binOpP op = do
 
 
 exponentExprP :: Parser (Expr RawNames Range)
-exponentExprP = negateExprP `chainl1` binOpP "^"
+exponentExprP = negateExprP `chainl1` binOpP "**"
 
 
 productExprP :: Parser (Expr RawNames Range)

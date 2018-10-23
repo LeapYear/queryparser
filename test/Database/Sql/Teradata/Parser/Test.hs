@@ -191,7 +191,6 @@ testParser = test
         , "EXPLAIN SELECT 1;"
         , "EXPLAIN DELETE FROM foo;"
         , "EXPLAIN INSERT INTO foo SELECT 1;"
-        , "SELECT 1^2;"
         , "SELECT 1" -- the `;` is optional
         , "SELECT 1\n  " -- the `;` is optional and trailing whitespace is ok
         , "WITH x AS (SELECT 1 AS a FROM dual)  SELECT * FROM X             UNION  SELECT * FROM X ORDER BY a ;"
@@ -386,6 +385,7 @@ testParser = test
         , "SELECT date_trunc('week', foo.at) FROM foo;"
         , "SELECT foo::TIME FROM bar;"
         , "SELECT 4 mod 3;"
+        , "SELECT 1 ** 2;"
         , "DROP VIEW foo.bar;"
         , "DROP VIEW IF EXISTS foo.bar;"
         ]
@@ -399,6 +399,7 @@ testParser = test
         , "SELECT datediff('a', 'b');"
         , "SELECT * FROM (foo);"
         , "SELECT 1 == 2;"
+        , "SELECT 1 ^ 2;"
         , "SELECT * FROM (SELECT 1);"
         , "SELECT * FROM ((SELECT 1) as a);"
         , "SELECT * FROM (foo) as a;"
