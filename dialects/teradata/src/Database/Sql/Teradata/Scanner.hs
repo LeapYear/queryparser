@@ -113,11 +113,11 @@ tokenize = go (Position 1 0 0)
 
                 (digits, rest) ->
                     let p' = advanceHorizontal (1 + TL.length digits) p
-                     in (TokNumber $ TL.cons '.' digits, p, p') : go p' rest
+                     in tokExponent go (TL.cons '.' digits) p p' rest
 
         c | isDigit c -> let (num, rest) = TL.span (isDigit || (=='.')) t
                              p' = advanceHorizontal (TL.length num) p
-                          in (TokNumber num, p, p') : go p' rest
+                          in tokExponent go num p p' rest
 
         c | isOperator c -> case readOperator t of
 
@@ -143,6 +143,36 @@ tokenize = go (Position 1 0 0)
 
     readOperator t = asum
         $ map (\ op -> (op,) <$> TL.stripPrefix op t) operators
+
+tokExponent
+  :: (Position -> Text -> [(Token, Position, Position)])
+  -> Text -> Position -> Position -> Text
+  -> [(Token, Position, Position)]
+tokExponent resumeTokenizing num p p' t =
+  case TL.uncons t of
+    Nothing -> noExp
+    Just (c, rest)
+      | c `elem` ['e', 'E'] ->
+        case TL.uncons t of
+          Nothing -> noExp
+          Just (signOrFirstDigit, rest')
+            | signOrFirstDigit `elem` ['+', '-'] ->
+                case TL.span isDigit rest' of
+                  ("", _) -> noExp
+                  (expDigits, rest'') ->
+                    let exponent = TL.concat [ TL.singleton c, TL.singleton signOrFirstDigit, expDigits ]
+                        p'' = advanceHorizontal (TL.length exponent) p'
+                     in (TokNumber $ TL.append num exponent, p, p'') : resumeTokenizing p'' rest''
+            | isDigit signOrFirstDigit ->
+                case TL.span isDigit rest' of
+                  (moreExpDigits, rest'') ->
+                    let exponent = TL.concat [ TL.singleton c, TL.singleton signOrFirstDigit, moreExpDigits ]
+                        p'' = advanceHorizontal (TL.length exponent) p'
+                     in (TokNumber $ TL.append num exponent, p, p'') : resumeTokenizing p'' rest''
+            | otherwise -> noExp
+      | otherwise -> noExp
+  where
+    noExp = (TokNumber num, p, p') : resumeTokenizing p' t
 
 
 -- | tokString returns Text, not ByteString, because there is no way to put arbitrary byte sequences in this kind of Teradata string (... for now?)
