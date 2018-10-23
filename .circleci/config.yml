@@ -1,0 +1,39 @@
+version: 2
+
+aliases:
+  # build environment
+  - &docker-linux
+    docker:
+      - image: centos:7
+    working_directory: /root/src
+
+  # system dependencies
+  - &install-stack
+    run:
+      name: Install stack
+      command: |
+        curl -sSL https://get.haskellstack.org/ | sh
+        stack --version
+
+  # test steps
+  - &run-tests
+    run:
+      name: Run tests
+      command: stack --no-docker test
+
+jobs:
+  test:
+    <<: *docker-linux
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - *install-stack
+      - *run-tests
+
+workflows:
+  version: 2
+
+  build_and_test:
+    jobs:
+      - test
