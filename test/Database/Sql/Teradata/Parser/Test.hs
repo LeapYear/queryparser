@@ -302,6 +302,7 @@ testParser = test
         , "SELECT Salary FROM Employee WHERE EmpNo = 10005;"
         , "SELECT CHARACTER_LENGTH(Details) FROM Orders;"
         , "SELECT AVG(Salary) FROM Employee;"
+        , "SELECT TOP 10 * FROM sales ORDER BY county;"
         ]
 
     , "Failing examples from Teradata documentation:" ~: map (TestCase . parsesUnsuccessfully)
@@ -310,7 +311,6 @@ testParser = test
         , "WITH RECURSIVE temp_table (employee_number) AS (SELECT root.employee_number FROM employee AS root WHERE root.manager_employee_number = 801 UNION ALL SELECT indirect.employee_number FROM temp_table AS direct, employee AS indirect WHERE direct.employee_number = indirect.manager_employee_number) SELECT * FROM temp_table ORDER BY employee_number;"
         , "WITH RECURSIVE orderable_items (product_id, quantity) AS (SELECT stocked.product_id, stocked.quantity FROM stocked, product WHERE stocked.product_id = product.product_id AND product.on_hand > 5) SELECT product_id, quantity FROM orderable_items WHERE quantity < 10;"
         , "WITH RECURSIVE temp_table (employee_id, level) AS (SELECT root.employee_number, 0 AS level FROM employee AS root WHERE root.employee_number = 1003 UNION ALL SELECT direct.employee_id, direct.level+1 FROM temp_table AS direct, employee AS indir WHERE indir.employee_number IN (1003,1004) AND direct.level < 2) SELECT * FROM temp_table ORDER BY level;"
-        , "SELECT TOP 10 * FROM sales ORDER BY county;"
         , "SELECT * FROM sales QUALIFY ROW_NUMBER() OVER (ORDER BY COUNTY) <= 10; "
         , "SELECT TOP 10 WITH TIES * FROM sales ORDER BY county; "
         , "SELECT * FROM sales QUALIFY RANK() OVER (ORDER BY county) <= 10;"
