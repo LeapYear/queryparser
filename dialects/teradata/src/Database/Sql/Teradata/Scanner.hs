@@ -153,12 +153,12 @@ tokExponent resumeTokenizing num p p' t =
     Nothing -> noExp
     Just (c, rest)
       | c `elem` ['e', 'E'] ->
-        case TL.uncons t of
-          Nothing -> noExp
+        case TL.uncons rest of
+          Nothing -> incompleteExp
           Just (signOrFirstDigit, rest')
             | signOrFirstDigit `elem` ['+', '-'] ->
                 case TL.span isDigit rest' of
-                  ("", _) -> noExp
+                  ("", _) -> incompleteExp
                   (expDigits, rest'') ->
                     let exponent = TL.concat [ TL.singleton c, TL.singleton signOrFirstDigit, expDigits ]
                         p'' = advanceHorizontal (TL.length exponent) p'
@@ -173,6 +173,7 @@ tokExponent resumeTokenizing num p p' t =
       | otherwise -> noExp
   where
     noExp = (TokNumber num, p, p') : resumeTokenizing p' t
+    incompleteExp = [(TokError "incomplete floating literal", p, p')]
 
 
 -- | tokString returns Text, not ByteString, because there is no way to put arbitrary byte sequences in this kind of Teradata string (... for now?)

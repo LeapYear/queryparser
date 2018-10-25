@@ -244,7 +244,31 @@ testTokenizer =
                                    , initPos
                                    , Position 1 2 2 )]
               ]
-      ]
+      ],
+    "Test numbers"
+    ~: test[
+      "Floats"
+      ~: test [ tokenize "1E100" ~?= [( TokNumber "1E100"
+                                      , initPos
+                                      , Position 1 5 5 )]
+
+              , tokenize "3.14E-10" ~?= [( TokNumber "3.14E-10"
+                                         , initPos
+                                         , Position 1 8 8 )]
+
+              , tokenize "6.023E23" ~?= [( TokNumber "6.023E23"
+                                         , initPos
+                                         , Position 1 8 8 )]
+
+              , tokenize "1E100e7" ~?= [( TokNumber "1E100"
+                                        , initPos
+                                        , Position 1 5 5 )
+                                       ,( TokWord False "e7"
+                                        , Position 1 5 5
+                                        , Position 1 7 7 )]
+
+              ]
+    ]
   ]
 
 tests :: Test
