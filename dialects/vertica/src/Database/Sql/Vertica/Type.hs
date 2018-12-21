@@ -50,7 +50,7 @@ import Data.Either (partitionEithers)
 import Data.List (foldl')
 import Data.List.NonEmpty (NonEmpty((:|)), toList, fromList)
 import Data.Maybe (catMaybes)
-import Data.Semigroup
+import Data.Semigroup ((<>))
 import Data.Text.Lazy (Text)
 import Data.Traversable (traverse)
 

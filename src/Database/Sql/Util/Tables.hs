@@ -30,7 +30,7 @@ import           Data.Map (Map)
 import qualified Data.Map as M
 
 import           Data.Ord
-import           Data.Monoid
+import           Data.Monoid ((<>))
 import           Data.Maybe (catMaybes)
 
 import           Data.List.NonEmpty (NonEmpty(..))

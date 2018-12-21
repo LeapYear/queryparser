@@ -32,7 +32,7 @@ import Data.Map.Strict (Map)
 import qualified Data.Set as S
 import Data.Set (Set)
 
-import Data.Semigroup
+import Data.Semigroup as Sem
 
 import Data.Functor.Identity
 import Data.Foldable
@@ -44,9 +44,12 @@ data Result = Result
     , resultColumns :: Set (Map (RColumnRef ()) FieldChain)
     }
 
+instance Sem.Semigroup Result where
+    Result bindings columns <> Result bindings' columns' = Result (bindings <> bindings') (columns <> columns')
+
 instance Monoid Result where
     mempty = Result mempty mempty
-    mappend (Result bindings columns) (Result bindings' columns') = Result (bindings <> bindings') (columns <> columns')
+    mappend = (<>)
 
 -- Relationship observed between two columns
 type Join = ((FullyQualifiedColumnName, [StructFieldName ()]), (FullyQualifiedColumnName, [StructFieldName ()]))

@@ -23,7 +23,7 @@
 module Database.Sql.Info where
 
 import Database.Sql.Type
-import Data.Semigroup
+import Data.Semigroup as Sem
 
 class HasInfo a where
     type Info a
@@ -131,11 +131,11 @@ instance HasInfo (DatabaseName a) where
     type Info (DatabaseName a) = a
     getInfo (DatabaseName info _) = info
 
-instance (Foldable f, Functor f, Semigroup a) => HasInfo (QSchemaName f a) where
+instance (Foldable f, Functor f, Sem.Semigroup a) => HasInfo (QSchemaName f a) where
     type Info (QSchemaName f a) = a
     getInfo (QSchemaName info database _ _) = foldl (<>) info $ getInfo <$> database
 
-instance (Foldable f, Functor f, Semigroup a) => HasInfo (QTableName f a) where
+instance (Foldable f, Functor f, Sem.Semigroup a) => HasInfo (QTableName f a) where
     type Info (QTableName f a) = a
     getInfo (QTableName info schema _) = foldl (<>) info $ getInfo <$> schema
 
@@ -143,20 +143,20 @@ instance HasInfo (TableAlias a) where
     type Info (TableAlias a) = a
     getInfo (TableAlias info _ _) = info
 
-instance Semigroup a => HasInfo (RTableRef a) where
+instance Sem.Semigroup a => HasInfo (RTableRef a) where
     type Info (RTableRef a) = a
     getInfo (RTableRef name _) = getInfo name
     getInfo (RTableAlias alias _) = getInfo alias
 
-instance Semigroup a => HasInfo (RTableName a) where
+instance Sem.Semigroup a => HasInfo (RTableName a) where
     type Info (RTableName a) = a
     getInfo (RTableName name _) = getInfo name
 
-instance (Foldable f, Functor f, Semigroup a) => HasInfo (QFunctionName f a) where
+instance (Foldable f, Functor f, Sem.Semigroup a) => HasInfo (QFunctionName f a) where
     type Info (QFunctionName f a) = a
     getInfo (QFunctionName info _ _) = info
 
-instance (Foldable f, Functor f, Semigroup a) => HasInfo (QColumnName f a) where
+instance (Foldable f, Functor f, Sem.Semigroup a) => HasInfo (QColumnName f a) where
     type Info (QColumnName f a) = a
     getInfo (QColumnName info table _) = foldl (<>) info $ getInfo <$> table
 
@@ -164,7 +164,7 @@ instance HasInfo (ColumnAlias a) where
     type Info (ColumnAlias a) = a
     getInfo (ColumnAlias info _ _) = info
 
-instance Semigroup a => HasInfo (RColumnRef a) where
+instance Sem.Semigroup a => HasInfo (RColumnRef a) where
     type Info (RColumnRef a) = a
     getInfo (RColumnRef name) = getInfo name
     getInfo (RColumnAlias alias) = getInfo alias

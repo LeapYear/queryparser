@@ -29,10 +29,11 @@ import qualified Data.HashMap.Strict as HMS
 import qualified Data.List as L
 import qualified Data.Map as M
 import           Data.Proxy
+import           Data.Semigroup ((<>))
 import qualified Data.Set as S
 import qualified Data.Text.Lazy as TL
 
-import Text.PrettyPrint
+import Text.PrettyPrint hiding ((<>))
 
 
 -- let's provide a really simple function to do parsing!

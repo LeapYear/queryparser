@@ -30,7 +30,7 @@ import Database.Sql.Hive.Type
 import Database.Sql.Util.Test (makeSelect)
 
 import Data.List.NonEmpty (NonEmpty(..))
-import Data.Monoid
+import Data.Monoid ((<>))
 import Data.Int (Int64)
 import           Data.Text.Lazy (Text)
 import qualified Data.Text.Lazy as TL

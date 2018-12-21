@@ -22,9 +22,10 @@ module Database.Sql.Pretty where
 
 import Database.Sql.Type
 
+import Data.Monoid ((<>))
 import qualified Data.Text.Lazy as TL
 
-import Text.PrettyPrint
+import Text.PrettyPrint hiding ((<>))
 
 
 renderPretty :: Pretty a => a -> String

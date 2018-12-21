@@ -38,7 +38,7 @@ module Database.Sql.Type.Names where
 import Data.Hashable
 import Data.Text.Lazy (Text, pack)
 import Data.Aeson
-import Data.Semigroup
+import Data.Semigroup as Sem
 import Data.String
 import Data.Functor.Identity
 import Data.Data (Data, Typeable)
@@ -437,7 +437,7 @@ data StructFieldName a = StructFieldName a Text
 newtype FieldChain = FieldChain (Map (StructFieldName ()) FieldChain)
     deriving (Eq, Ord, Show)
 
-instance Semigroup FieldChain where
+instance Sem.Semigroup FieldChain where
     FieldChain m <> FieldChain n
         | M.null m || M.null n = FieldChain M.empty
         | otherwise = FieldChain $ M.unionWith (<>) m n
