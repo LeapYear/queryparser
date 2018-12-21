@@ -160,15 +160,15 @@ tokExponent resumeTokenizing num p p' t =
                 case TL.span isDigit rest' of
                   ("", _) -> incompleteExp
                   (expDigits, rest'') ->
-                    let exponent = TL.concat [ TL.singleton c, TL.singleton signOrFirstDigit, expDigits ]
-                        p'' = advanceHorizontal (TL.length exponent) p'
-                     in (TokNumber $ TL.append num exponent, p, p'') : resumeTokenizing p'' rest''
+                    let exponent' = TL.concat [ TL.singleton c, TL.singleton signOrFirstDigit, expDigits ]
+                        p'' = advanceHorizontal (TL.length exponent') p'
+                     in (TokNumber $ TL.append num exponent', p, p'') : resumeTokenizing p'' rest''
             | isDigit signOrFirstDigit ->
                 case TL.span isDigit rest' of
                   (moreExpDigits, rest'') ->
-                    let exponent = TL.concat [ TL.singleton c, TL.singleton signOrFirstDigit, moreExpDigits ]
-                        p'' = advanceHorizontal (TL.length exponent) p'
-                     in (TokNumber $ TL.append num exponent, p, p'') : resumeTokenizing p'' rest''
+                    let exponent' = TL.concat [ TL.singleton c, TL.singleton signOrFirstDigit, moreExpDigits ]
+                        p'' = advanceHorizontal (TL.length exponent') p'
+                     in (TokNumber $ TL.append num exponent', p, p'') : resumeTokenizing p'' rest''
             | otherwise -> noExp
       | otherwise -> noExp
   where
