@@ -84,7 +84,7 @@ library
                      , filepath
                      , hpc
                      , HUnit >= 1.2
-                     , haskell-src-exts
+                     , pretty-show
                      , template-haskell
                      , test-framework
                      , tasty
@@ -151,7 +151,7 @@ test-suite queryparser-test-suite
                      , filepath
                      , hpc
                      , HUnit >= 1.2
-                     , haskell-src-exts
+                     , pretty-show
                      , template-haskell
                      , tasty
                      , tasty-golden

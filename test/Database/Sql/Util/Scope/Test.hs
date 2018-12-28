@@ -51,16 +51,13 @@ import           Data.Text.Lazy (Text)
 import           Data.Either (lefts)
 
 import System.FilePath
-
-import Language.Haskell.Exts (ParseResult(..), SrcLoc(..), parseExp, prettyPrint)
+import Text.Show.Pretty (ppShow)
 
 warnings :: [Either (ResolutionError Integer) (ResolutionSuccess Integer)] -> [ResolutionError Integer]
 warnings = lefts
 
 fmt :: Show a => a -> Text
-fmt expr = TL.pack $ (++ "\n") $ case parseExp (show expr) of
-  ParseOk ast -> prettyPrint ast
-  ParseFailed SrcLoc{..} errMsg -> srcFilename ++ ":" ++ show srcLine ++ ":" ++ show srcColumn ++ ": " ++ errMsg
+fmt = TL.pack . ppShow
 
 tastyToHUnit :: Tasty.TestTree -> Assertion
 tastyToHUnit = (`Tasty.foldTestTree` mempty) Tasty.trivialFold{ Tasty.foldSingle = \ opts _ t -> assert . Tasty.resultSuccessful =<< Tasty.run opts t (const $ pure ()) }
