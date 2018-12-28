@@ -66,7 +66,7 @@ library
                      , Database.Sql.Util.Catalog.Test
                      , Database.Sql.Util.Columns.Test
                      , Test.HUnit.Ticket
-  build-depends:       base >=4.9 && <4.12
+  build-depends:       base >=4.9 && <4.13
                      , queryparser
                      , queryparser-vertica
                      , queryparser-hive
@@ -132,7 +132,7 @@ test-suite queryparser-test-suite
                      , Database.Sql.Util.Catalog.Test
                      , Database.Sql.Util.Columns.Test
                      , Test.HUnit.Ticket
-  build-depends:       base >=4.9 && <4.12
+  build-depends:       base >=4.9 && <4.13
                      , queryparser-test
                      , queryparser
                      , queryparser-vertica
