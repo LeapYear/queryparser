@@ -1,86 +1,113 @@
-(Right
-   (VerticaStandardSqlStatement
-      (QueryStmt
-         (QuerySelect 1
-            (Select{selectInfo = 2,
-                    selectCols =
-                      SelectColumns{selectColumnsInfo = 3,
-                                    selectColumnsList =
-                                      [SelectExpr 4 [ColumnAlias 5 "a" (ColumnAliasId 1)]
-                                         (ColumnExpr 6
-                                            (RColumnAlias
-                                               (ColumnAlias 15 "a" (ColumnAliasId (-4)))))]},
-                    selectFrom =
-                      Just
-                        (SelectFrom 9
-                           [TablishSubQuery 10
-                              (RTablishAliases (Right (TableAlias 11 "baz" (TableAliasId 2)))
-                                 [ColumnAlias 15 "a" (ColumnAliasId (-4)),
-                                  ColumnAlias 15 "b" (ColumnAliasId (-5))])
-                              (QuerySelect 12
-                                 (Select{selectInfo = 13,
-                                         selectCols =
-                                           SelectColumns{selectColumnsInfo = 14,
-                                                         selectColumnsList =
-                                                           [SelectStar 15 Nothing
-                                                              (StarColumnNames
-                                                                 [(RColumnAlias
-                                                                     (ColumnAlias 15 "a"
-                                                                        (ColumnAliasId (-2))),
-                                                                   ColumnAlias 15 "a"
-                                                                     (ColumnAliasId (-4))),
-                                                                  (RColumnAlias
-                                                                     (ColumnAlias 15 "b"
-                                                                        (ColumnAliasId (-3))),
-                                                                   ColumnAlias 15 "b"
-                                                                     (ColumnAliasId (-5)))])]},
-                                         selectFrom =
-                                           Just
-                                             (SelectFrom 16
-                                                [TablishTable 17
-                                                   (RTablishAliases
-                                                      (Right
-                                                         (TableAlias 17 "bar" (TableAliasId (-1))))
-                                                      [ColumnAlias 17 "a" (ColumnAliasId (-2)),
-                                                       ColumnAlias 17 "b" (ColumnAliasId (-3))])
-                                                   (RTableRef
-                                                      (QTableName{tableNameInfo = 18,
-                                                                  tableNameSchema =
-                                                                    Identity
-                                                                      (QSchemaName{schemaNameInfo =
-                                                                                     18,
-                                                                                   schemaNameDatabase
-                                                                                     =
-                                                                                     Identity
-                                                                                       (DatabaseName
-                                                                                          18
-                                                                                          "default_db"),
-                                                                                   schemaNameName =
-                                                                                     "public",
-                                                                                   schemaNameType =
-                                                                                     NormalSchema}),
-                                                                  tableNameName = "bar"})
-                                                      (SchemaMember{tableType = Table,
-                                                                    persistence = Persistent,
-                                                                    columnsList =
-                                                                      [QColumnName{columnNameInfo =
-                                                                                     (),
-                                                                                   columnNameTable =
-                                                                                     None,
-                                                                                   columnNameName =
-                                                                                     "a"},
-                                                                       QColumnName{columnNameInfo =
-                                                                                     (),
-                                                                                   columnNameTable =
-                                                                                     None,
-                                                                                   columnNameName =
-                                                                                     "b"}],
-                                                                    viewQuery = Nothing}))]),
-                                         selectWhere = Nothing, selectTimeseries = Nothing,
-                                         selectGroup = Nothing, selectHaving = Nothing,
-                                         selectNamedWindow = Nothing,
-                                         selectDistinct = Distinct False}))]),
-                    selectWhere = Nothing, selectTimeseries = Nothing,
-                    selectGroup = Nothing, selectHaving = Nothing,
-                    selectNamedWindow = Nothing, selectDistinct = Distinct False})))),
- [])
+( Right
+    (VerticaStandardSqlStatement
+       (QueryStmt
+          (QuerySelect
+             1
+             Select
+               { selectInfo = 2
+               , selectCols =
+                   SelectColumns
+                     { selectColumnsInfo = 3
+                     , selectColumnsList =
+                         [ SelectExpr
+                             4
+                             [ ColumnAlias 5 "a" (ColumnAliasId 1) ]
+                             (ColumnExpr
+                                6 (RColumnAlias (ColumnAlias 15 "a" (ColumnAliasId (-4)))))
+                         ]
+                     }
+               , selectFrom =
+                   Just
+                     (SelectFrom
+                        9
+                        [ TablishSubQuery
+                            10
+                            (RTablishAliases
+                               (Right (TableAlias 11 "baz" (TableAliasId 2)))
+                               [ ColumnAlias 15 "a" (ColumnAliasId (-4))
+                               , ColumnAlias 15 "b" (ColumnAliasId (-5))
+                               ])
+                            (QuerySelect
+                               12
+                               Select
+                                 { selectInfo = 13
+                                 , selectCols =
+                                     SelectColumns
+                                       { selectColumnsInfo = 14
+                                       , selectColumnsList =
+                                           [ SelectStar
+                                               15
+                                               Nothing
+                                               (StarColumnNames
+                                                  [ ( RColumnAlias
+                                                        (ColumnAlias 15 "a" (ColumnAliasId (-2)))
+                                                    , ColumnAlias 15 "a" (ColumnAliasId (-4))
+                                                    )
+                                                  , ( RColumnAlias
+                                                        (ColumnAlias 15 "b" (ColumnAliasId (-3)))
+                                                    , ColumnAlias 15 "b" (ColumnAliasId (-5))
+                                                    )
+                                                  ])
+                                           ]
+                                       }
+                                 , selectFrom =
+                                     Just
+                                       (SelectFrom
+                                          16
+                                          [ TablishTable
+                                              17
+                                              (RTablishAliases
+                                                 (Right (TableAlias 17 "bar" (TableAliasId (-1))))
+                                                 [ ColumnAlias 17 "a" (ColumnAliasId (-2))
+                                                 , ColumnAlias 17 "b" (ColumnAliasId (-3))
+                                                 ])
+                                              (RTableRef
+                                                 QTableName
+                                                   { tableNameInfo = 18
+                                                   , tableNameSchema =
+                                                       Identity
+                                                         QSchemaName
+                                                           { schemaNameInfo = 18
+                                                           , schemaNameDatabase =
+                                                               Identity
+                                                                 (DatabaseName 18 "default_db")
+                                                           , schemaNameName = "public"
+                                                           , schemaNameType = NormalSchema
+                                                           }
+                                                   , tableNameName = "bar"
+                                                   }
+                                                 SchemaMember
+                                                   { tableType = Table
+                                                   , persistence = Persistent
+                                                   , columnsList =
+                                                       [ QColumnName
+                                                           { columnNameInfo = ()
+                                                           , columnNameTable = None
+                                                           , columnNameName = "a"
+                                                           }
+                                                       , QColumnName
+                                                           { columnNameInfo = ()
+                                                           , columnNameTable = None
+                                                           , columnNameName = "b"
+                                                           }
+                                                       ]
+                                                   , viewQuery = Nothing
+                                                   })
+                                          ])
+                                 , selectWhere = Nothing
+                                 , selectTimeseries = Nothing
+                                 , selectGroup = Nothing
+                                 , selectHaving = Nothing
+                                 , selectNamedWindow = Nothing
+                                 , selectDistinct = Distinct False
+                                 })
+                        ])
+               , selectWhere = Nothing
+               , selectTimeseries = Nothing
+               , selectGroup = Nothing
+               , selectHaving = Nothing
+               , selectNamedWindow = Nothing
+               , selectDistinct = Distinct False
+               })))
+, []
+)

@@ -1,110 +1,168 @@
-(Right
-   (VerticaStandardSqlStatement
-      (QueryStmt
-         (QuerySelect 1
-            (Select{selectInfo = 2,
-                    selectCols =
-                      SelectColumns{selectColumnsInfo = 3,
-                                    selectColumnsList =
-                                      [SelectStar 4 Nothing
-                                         (StarColumnNames
-                                            [(RColumnAlias (ColumnAlias 4 "a" (ColumnAliasId (-8))),
-                                              ColumnAlias 4 "a" (ColumnAliasId (-11))),
-                                             (RColumnAlias (ColumnAlias 4 "a" (ColumnAliasId (-9))),
-                                              ColumnAlias 4 "a" (ColumnAliasId (-12))),
-                                             (RColumnAlias
-                                                (ColumnAlias 4 "a" (ColumnAliasId (-10))),
-                                              ColumnAlias 4 "a" (ColumnAliasId (-13)))])]},
-                    selectFrom =
-                      Just
-                        (SelectFrom 5
-                           [TablishJoin 6
-                              (RTablishAliases (Left (TableAliasId (-7)))
-                                 [ColumnAlias 6 "a" (ColumnAliasId (-8)),
-                                  ColumnAlias 6 "a" (ColumnAliasId (-9)),
-                                  ColumnAlias 6 "a" (ColumnAliasId (-10))])
-                              (JoinInner 7)
-                              (JoinOn
-                                 (BinOpExpr 8 (Operator "=")
-                                    (ColumnExpr 9
-                                       (RColumnAlias (ColumnAlias 15 "a" (ColumnAliasId (-5)))))
-                                    (ColumnExpr 12
-                                       (RColumnAlias (ColumnAlias 30 "a" (ColumnAliasId (-6)))))))
-                              (TablishJoin 15
-                                 (RTablishAliases (Left (TableAliasId (-3)))
-                                    [ColumnAlias 15 "a" (ColumnAliasId (-4)),
-                                     ColumnAlias 15 "a" (ColumnAliasId (-5))])
-                                 (JoinInner 16)
-                                 (JoinOn
-                                    (BinOpExpr 17 (Operator "=")
-                                       (ColumnExpr 18
-                                          (RColumnAlias (ColumnAlias 24 "a" (ColumnAliasId (-1)))))
-                                       (ColumnExpr 21
-                                          (RColumnAlias
-                                             (ColumnAlias 27 "a" (ColumnAliasId (-2)))))))
-                                 (TablishTable 24
-                                    (RTablishAliases (Right (TableAlias 25 "x" (TableAliasId 1)))
-                                       [ColumnAlias 24 "a" (ColumnAliasId (-1))])
-                                    (RTableRef
-                                       (QTableName{tableNameInfo = 26,
-                                                   tableNameSchema =
-                                                     Identity
-                                                       (QSchemaName{schemaNameInfo = 26,
-                                                                    schemaNameDatabase =
-                                                                      Identity
-                                                                        (DatabaseName 26
-                                                                           "default_db"),
-                                                                    schemaNameName = "public",
-                                                                    schemaNameType = NormalSchema}),
-                                                   tableNameName = "foo"})
-                                       (SchemaMember{tableType = Table, persistence = Persistent,
-                                                     columnsList =
-                                                       [QColumnName{columnNameInfo = (),
-                                                                    columnNameTable = None,
-                                                                    columnNameName = "a"}],
-                                                     viewQuery = Nothing})))
-                                 (TablishTable 27
-                                    (RTablishAliases (Right (TableAlias 28 "y" (TableAliasId 2)))
-                                       [ColumnAlias 27 "a" (ColumnAliasId (-2))])
-                                    (RTableRef
-                                       (QTableName{tableNameInfo = 29,
-                                                   tableNameSchema =
-                                                     Identity
-                                                       (QSchemaName{schemaNameInfo = 29,
-                                                                    schemaNameDatabase =
-                                                                      Identity
-                                                                        (DatabaseName 29
-                                                                           "default_db"),
-                                                                    schemaNameName = "public",
-                                                                    schemaNameType = NormalSchema}),
-                                                   tableNameName = "foo"})
-                                       (SchemaMember{tableType = Table, persistence = Persistent,
-                                                     columnsList =
-                                                       [QColumnName{columnNameInfo = (),
-                                                                    columnNameTable = None,
-                                                                    columnNameName = "a"}],
-                                                     viewQuery = Nothing}))))
-                              (TablishTable 30
-                                 (RTablishAliases (Right (TableAlias 31 "z" (TableAliasId 3)))
-                                    [ColumnAlias 30 "a" (ColumnAliasId (-6))])
-                                 (RTableRef
-                                    (QTableName{tableNameInfo = 32,
-                                                tableNameSchema =
-                                                  Identity
-                                                    (QSchemaName{schemaNameInfo = 32,
-                                                                 schemaNameDatabase =
-                                                                   Identity
-                                                                     (DatabaseName 32 "default_db"),
-                                                                 schemaNameName = "public",
-                                                                 schemaNameType = NormalSchema}),
-                                                tableNameName = "foo"})
-                                    (SchemaMember{tableType = Table, persistence = Persistent,
-                                                  columnsList =
-                                                    [QColumnName{columnNameInfo = (),
-                                                                 columnNameTable = None,
-                                                                 columnNameName = "a"}],
-                                                  viewQuery = Nothing})))]),
-                    selectWhere = Nothing, selectTimeseries = Nothing,
-                    selectGroup = Nothing, selectHaving = Nothing,
-                    selectNamedWindow = Nothing, selectDistinct = Distinct False})))),
- [])
+( Right
+    (VerticaStandardSqlStatement
+       (QueryStmt
+          (QuerySelect
+             1
+             Select
+               { selectInfo = 2
+               , selectCols =
+                   SelectColumns
+                     { selectColumnsInfo = 3
+                     , selectColumnsList =
+                         [ SelectStar
+                             4
+                             Nothing
+                             (StarColumnNames
+                                [ ( RColumnAlias (ColumnAlias 4 "a" (ColumnAliasId (-8)))
+                                  , ColumnAlias 4 "a" (ColumnAliasId (-11))
+                                  )
+                                , ( RColumnAlias (ColumnAlias 4 "a" (ColumnAliasId (-9)))
+                                  , ColumnAlias 4 "a" (ColumnAliasId (-12))
+                                  )
+                                , ( RColumnAlias (ColumnAlias 4 "a" (ColumnAliasId (-10)))
+                                  , ColumnAlias 4 "a" (ColumnAliasId (-13))
+                                  )
+                                ])
+                         ]
+                     }
+               , selectFrom =
+                   Just
+                     (SelectFrom
+                        5
+                        [ TablishJoin
+                            6
+                            (RTablishAliases
+                               (Left (TableAliasId (-7)))
+                               [ ColumnAlias 6 "a" (ColumnAliasId (-8))
+                               , ColumnAlias 6 "a" (ColumnAliasId (-9))
+                               , ColumnAlias 6 "a" (ColumnAliasId (-10))
+                               ])
+                            (JoinInner 7)
+                            (JoinOn
+                               (BinOpExpr
+                                  8
+                                  (Operator "=")
+                                  (ColumnExpr
+                                     9 (RColumnAlias (ColumnAlias 15 "a" (ColumnAliasId (-5)))))
+                                  (ColumnExpr
+                                     12 (RColumnAlias (ColumnAlias 30 "a" (ColumnAliasId (-6)))))))
+                            (TablishJoin
+                               15
+                               (RTablishAliases
+                                  (Left (TableAliasId (-3)))
+                                  [ ColumnAlias 15 "a" (ColumnAliasId (-4))
+                                  , ColumnAlias 15 "a" (ColumnAliasId (-5))
+                                  ])
+                               (JoinInner 16)
+                               (JoinOn
+                                  (BinOpExpr
+                                     17
+                                     (Operator "=")
+                                     (ColumnExpr
+                                        18 (RColumnAlias (ColumnAlias 24 "a" (ColumnAliasId (-1)))))
+                                     (ColumnExpr
+                                        21
+                                        (RColumnAlias (ColumnAlias 27 "a" (ColumnAliasId (-2)))))))
+                               (TablishTable
+                                  24
+                                  (RTablishAliases
+                                     (Right (TableAlias 25 "x" (TableAliasId 1)))
+                                     [ ColumnAlias 24 "a" (ColumnAliasId (-1)) ])
+                                  (RTableRef
+                                     QTableName
+                                       { tableNameInfo = 26
+                                       , tableNameSchema =
+                                           Identity
+                                             QSchemaName
+                                               { schemaNameInfo = 26
+                                               , schemaNameDatabase =
+                                                   Identity (DatabaseName 26 "default_db")
+                                               , schemaNameName = "public"
+                                               , schemaNameType = NormalSchema
+                                               }
+                                       , tableNameName = "foo"
+                                       }
+                                     SchemaMember
+                                       { tableType = Table
+                                       , persistence = Persistent
+                                       , columnsList =
+                                           [ QColumnName
+                                               { columnNameInfo = ()
+                                               , columnNameTable = None
+                                               , columnNameName = "a"
+                                               }
+                                           ]
+                                       , viewQuery = Nothing
+                                       }))
+                               (TablishTable
+                                  27
+                                  (RTablishAliases
+                                     (Right (TableAlias 28 "y" (TableAliasId 2)))
+                                     [ ColumnAlias 27 "a" (ColumnAliasId (-2)) ])
+                                  (RTableRef
+                                     QTableName
+                                       { tableNameInfo = 29
+                                       , tableNameSchema =
+                                           Identity
+                                             QSchemaName
+                                               { schemaNameInfo = 29
+                                               , schemaNameDatabase =
+                                                   Identity (DatabaseName 29 "default_db")
+                                               , schemaNameName = "public"
+                                               , schemaNameType = NormalSchema
+                                               }
+                                       , tableNameName = "foo"
+                                       }
+                                     SchemaMember
+                                       { tableType = Table
+                                       , persistence = Persistent
+                                       , columnsList =
+                                           [ QColumnName
+                                               { columnNameInfo = ()
+                                               , columnNameTable = None
+                                               , columnNameName = "a"
+                                               }
+                                           ]
+                                       , viewQuery = Nothing
+                                       })))
+                            (TablishTable
+                               30
+                               (RTablishAliases
+                                  (Right (TableAlias 31 "z" (TableAliasId 3)))
+                                  [ ColumnAlias 30 "a" (ColumnAliasId (-6)) ])
+                               (RTableRef
+                                  QTableName
+                                    { tableNameInfo = 32
+                                    , tableNameSchema =
+                                        Identity
+                                          QSchemaName
+                                            { schemaNameInfo = 32
+                                            , schemaNameDatabase =
+                                                Identity (DatabaseName 32 "default_db")
+                                            , schemaNameName = "public"
+                                            , schemaNameType = NormalSchema
+                                            }
+                                    , tableNameName = "foo"
+                                    }
+                                  SchemaMember
+                                    { tableType = Table
+                                    , persistence = Persistent
+                                    , columnsList =
+                                        [ QColumnName
+                                            { columnNameInfo = ()
+                                            , columnNameTable = None
+                                            , columnNameName = "a"
+                                            }
+                                        ]
+                                    , viewQuery = Nothing
+                                    }))
+                        ])
+               , selectWhere = Nothing
+               , selectTimeseries = Nothing
+               , selectGroup = Nothing
+               , selectHaving = Nothing
+               , selectNamedWindow = Nothing
+               , selectDistinct = Distinct False
+               })))
+, []
+)

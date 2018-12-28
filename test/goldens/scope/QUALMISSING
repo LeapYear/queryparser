@@ -1,9 +1,15 @@
-(Left
-   (MissingColumn
-      (QColumnName{columnNameInfo = 8,
-                   columnNameTable =
-                     Just
-                       (QTableName{tableNameInfo = 7, tableNameSchema = Nothing,
-                                   tableNameName = "foo"}),
-                   columnNameName = "b"})),
- [])
+( Left
+    (MissingColumn
+       QColumnName
+         { columnNameInfo = 8
+         , columnNameTable =
+             Just
+               QTableName
+                 { tableNameInfo = 7
+                 , tableNameSchema = Nothing
+                 , tableNameName = "foo"
+                 }
+         , columnNameName = "b"
+         })
+, []
+)

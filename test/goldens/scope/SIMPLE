@@ -1,39 +1,63 @@
-(Right
-   (VerticaStandardSqlStatement
-      (QueryStmt
-         (QuerySelect 1
-            (Select{selectInfo = 2,
-                    selectCols =
-                      SelectColumns{selectColumnsInfo = 3,
-                                    selectColumnsList =
-                                      [SelectExpr 4 [ColumnAlias 5 "a" (ColumnAliasId 1)]
-                                         (ColumnExpr 6
-                                            (RColumnAlias
-                                               (ColumnAlias 9 "a" (ColumnAliasId (-2)))))]},
-                    selectFrom =
-                      Just
-                        (SelectFrom 8
-                           [TablishTable 9
-                              (RTablishAliases (Right (TableAlias 9 "foo" (TableAliasId (-1))))
-                                 [ColumnAlias 9 "a" (ColumnAliasId (-2))])
-                              (RTableRef
-                                 (QTableName{tableNameInfo = 10,
-                                             tableNameSchema =
-                                               Identity
-                                                 (QSchemaName{schemaNameInfo = 10,
-                                                              schemaNameDatabase =
-                                                                Identity
-                                                                  (DatabaseName 10 "default_db"),
-                                                              schemaNameName = "public",
-                                                              schemaNameType = NormalSchema}),
-                                             tableNameName = "foo"})
-                                 (SchemaMember{tableType = Table, persistence = Persistent,
-                                               columnsList =
-                                                 [QColumnName{columnNameInfo = (),
-                                                              columnNameTable = None,
-                                                              columnNameName = "a"}],
-                                               viewQuery = Nothing}))]),
-                    selectWhere = Nothing, selectTimeseries = Nothing,
-                    selectGroup = Nothing, selectHaving = Nothing,
-                    selectNamedWindow = Nothing, selectDistinct = Distinct False})))),
- [])
+( Right
+    (VerticaStandardSqlStatement
+       (QueryStmt
+          (QuerySelect
+             1
+             Select
+               { selectInfo = 2
+               , selectCols =
+                   SelectColumns
+                     { selectColumnsInfo = 3
+                     , selectColumnsList =
+                         [ SelectExpr
+                             4
+                             [ ColumnAlias 5 "a" (ColumnAliasId 1) ]
+                             (ColumnExpr
+                                6 (RColumnAlias (ColumnAlias 9 "a" (ColumnAliasId (-2)))))
+                         ]
+                     }
+               , selectFrom =
+                   Just
+                     (SelectFrom
+                        8
+                        [ TablishTable
+                            9
+                            (RTablishAliases
+                               (Right (TableAlias 9 "foo" (TableAliasId (-1))))
+                               [ ColumnAlias 9 "a" (ColumnAliasId (-2)) ])
+                            (RTableRef
+                               QTableName
+                                 { tableNameInfo = 10
+                                 , tableNameSchema =
+                                     Identity
+                                       QSchemaName
+                                         { schemaNameInfo = 10
+                                         , schemaNameDatabase =
+                                             Identity (DatabaseName 10 "default_db")
+                                         , schemaNameName = "public"
+                                         , schemaNameType = NormalSchema
+                                         }
+                                 , tableNameName = "foo"
+                                 }
+                               SchemaMember
+                                 { tableType = Table
+                                 , persistence = Persistent
+                                 , columnsList =
+                                     [ QColumnName
+                                         { columnNameInfo = ()
+                                         , columnNameTable = None
+                                         , columnNameName = "a"
+                                         }
+                                     ]
+                                 , viewQuery = Nothing
+                                 })
+                        ])
+               , selectWhere = Nothing
+               , selectTimeseries = Nothing
+               , selectGroup = Nothing
+               , selectHaving = Nothing
+               , selectNamedWindow = Nothing
+               , selectDistinct = Distinct False
+               })))
+, []
+)

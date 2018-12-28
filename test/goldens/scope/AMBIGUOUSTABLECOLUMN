@@ -1,9 +1,15 @@
-(Left
-   (AmbiguousColumn
-      (QColumnName{columnNameInfo = 8,
-                   columnNameTable =
-                     Just
-                       (QTableName{tableNameInfo = 7, tableNameSchema = Nothing,
-                                   tableNameName = "bar"}),
-                   columnNameName = "a"})),
- [])
+( Left
+    (AmbiguousColumn
+       QColumnName
+         { columnNameInfo = 8
+         , columnNameTable =
+             Just
+               QTableName
+                 { tableNameInfo = 7
+                 , tableNameSchema = Nothing
+                 , tableNameName = "bar"
+                 }
+         , columnNameName = "a"
+         })
+, []
+)
